@@ -12,7 +12,7 @@ def get_melon_best_album(genre_array, play_array):
             genre_index_play_array_dict[genre].append([i, play])
         else:
             genre_total_play_dict[genre] = play
-            genre_index_play_array_dict[genre] = ([i, play])
+            genre_index_play_array_dict[genre] = [[i, play]]
 
     sorted_genre_play_array = sorted(genre_total_play_dict.items(), key=lambda item: item[1], reverse=True)
 
