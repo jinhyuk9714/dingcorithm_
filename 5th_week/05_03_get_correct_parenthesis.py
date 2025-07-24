@@ -2,7 +2,7 @@ from collections import deque
 
 balanced_parenthesis_string = "()))((()"
 
-
+# 올바른 괄호 문자열 확인
 def is_correct_parenthesis(string):
     stack = []
 
@@ -74,7 +74,7 @@ def separate_to_u_v(string):
 
     return u, v
 
-
+# 문자열 뒤집기
 def reverse_parenthesis(string):
     reversed_string = ""
     for char in string:
