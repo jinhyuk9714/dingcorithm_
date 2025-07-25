@@ -1,22 +1,16 @@
 import itertools, sys
 
 # 도시의 크기 N, 선택할 치킨집 수 M
-n = 5
-m = 3
+n, m = map(int, input().split())
 
 # 도시 정보: 0 = 빈 칸, 1 = 집, 2 = 치킨집
-city_map = [
-    [0, 0, 1, 0, 0],
-    [0, 0, 2, 0, 1],
-    [0, 1, 2, 0, 0],
-    [0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 2],
-]
+city_map = [list(map(int, input().split())) for _ in range(n)]
+
 
 def get_min_city_chicken_distance(n, m, city_map):
-    house_locations = []         # 집들의 위치 저장
-    chicken_locations = []       # 치킨집들의 위치 저장
-    min_total = sys.maxsize      # 도시의 최소 치킨 거리 (최솟값으로 갱신할 예정)
+    house_locations = []  # 집들의 위치 저장
+    chicken_locations = []  # 치킨집들의 위치 저장
+    min_total = sys.maxsize  # 도시의 최소 치킨 거리 (최솟값으로 갱신할 예정)
 
     # 1. 집과 치킨집 위치 수집
     for i in range(n):
