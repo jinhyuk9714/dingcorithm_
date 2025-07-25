@@ -1,13 +1,10 @@
 from collections import deque
 
+n, m = map(int, input().split())  # N x M 입력
+
 # 예시 맵 (테스트용)
-game_map = [
-    ["#", "#", "#", "#", "#"],
-    ["#", ".", ".", "B", "#"],
-    ["#", ".", "#", ".", "#"],
-    ["#", "R", "O", ".", "#"],
-    ["#", "#", "#", "#", "#"],
-]
+game_map = [list(input()) for _ in range(n)]
+
 
 # 방향: 북, 동, 남, 서
 dr = [-1, 0, 1, 0]
@@ -26,8 +23,7 @@ def move_until_wall_or_hole(r, c, diff_r, diff_c, game_map):
 
 
 # 빨간 구슬만 구멍으로 빼낼 수 있는지 확인하는 함수 (10회 이하 시도)
-def is_available_to_take_out_only_red_marble(game_map):
-    n, m = len(game_map), len(game_map[0])  # 맵 크기
+def is_available_to_take_out_only_red_marble(n, m, game_map):
     # visited[red_r][red_c][blue_r][blue_c] = True → 방문 여부 체크
     visited = [[[[False] * m for _ in range(n)] for _ in range(m)] for _ in range(n)]
     queue = deque()
@@ -69,7 +65,7 @@ def is_available_to_take_out_only_red_marble(game_map):
 
             # 빨간 구슬만 구멍에 빠졌으면 성공
             if game_map[next_red_row][next_red_col] == 'O':
-                return True
+                return try_count
 
             # 두 구슬이 같은 위치에 도착했다면 → 이동 거리 비교해서 하나를 뒤로 물림
             if next_red_row == next_blue_row and next_red_col == next_blue_col:
@@ -89,29 +85,9 @@ def is_available_to_take_out_only_red_marble(game_map):
                     try_count + 1
                 ))
 
-    # 빨간 구슬만 탈출할 수 없으면 False
-    return False
+    # 빨간 구슬만 탈출할 수 없으면 -1
+    return -1
 
 
-# 테스트 1: 빨간 구슬만 구멍에 빠질 수 있는지 확인
-print(is_available_to_take_out_only_red_marble(game_map))  # True
-
-# 테스트 2
-game_map = [
-    ["#", "#", "#", "#", "#", "#", "#", "#", "#", "#"],
-    ["#", ".", "O", ".", ".", ".", ".", "R", "B", "#"],
-    ["#", "#", "#", "#", "#", "#", "#", "#", "#", "#"]
-]
-print("정답 = False / 현재 풀이 값 = ", is_available_to_take_out_only_red_marble(game_map))
-
-# 테스트 3
-game_map = [
-    ["#", "#", "#", "#", "#", "#", "#"],
-    ["#", ".", ".", "R", "#", "B", "#"],
-    ["#", ".", "#", "#", "#", "#", "#"],
-    ["#", ".", ".", ".", ".", ".", "#"],
-    ["#", "#", "#", "#", "#", ".", "#"],
-    ["#", "O", ".", ".", ".", ".", "#"],
-    ["#", "#", "#", "#", "#", "#", "#"]
-]
-print("정답 = True / 현재 풀이 값 = ", is_available_to_take_out_only_red_marble(game_map))
+# 테스트: 빨간 구슬만 구멍에 빠질 수 있는지 확인
+print(is_available_to_take_out_only_red_marble(n, m, game_map))
